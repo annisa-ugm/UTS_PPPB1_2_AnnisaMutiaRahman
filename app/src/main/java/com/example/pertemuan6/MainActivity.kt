@@ -21,6 +21,9 @@ class MainActivity : AppCompatActivity() {
         with(binding){
 //            Get Array
             val monthList = resources.getStringArray(R.array.month)
+            val adapterSpinnerMonth = ArrayAdapter(this@MainActivity,
+                android.R.layout.simple_spinner_dropdown_item, monthList)
+            datepicker.month = adapterSpinnerMonth[]
 
 //            Initiate
             var selectedTime ="${timePicker.hour}:${timePicker.minute}"
@@ -30,17 +33,19 @@ class MainActivity : AppCompatActivity() {
 
 
 //            Kehadiran Dropdown=======================================
-            val adapterKehadiran = ArrayAdapter<String>(
-                this,
-                android.R.layout.simple_spinner_item,
-                kehadiranList
-            )
+            val kehadiranList = listOf("tepat waktu", "terlambat", "izin")
+            val adapterKehadiran = ArrayAdapter(this@MainActivity,
+                android.R.layout.simple_spinner_item, kehadiranList)
             kehadiranSpinner.adapter = adapterKehadiran
 
 //            Selected Kehadiran
             kehadiranSpinner.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
-                    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long) {
 
                     }
 
@@ -48,6 +53,10 @@ class MainActivity : AppCompatActivity() {
 
                     }
                 }
+
+            submitButton.setOnClickListener {
+                Toast.makeText(this@MainActivity, "Presensi berhasil $selectedDate jam $selectedTime" , Toast.LENGTH_SHORT).show()
+            }
 
 
 
